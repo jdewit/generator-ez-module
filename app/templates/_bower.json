@@ -1,0 +1,14 @@
+{
+  "name": "<%= _.slugify(appname) %>",
+  "description": "<%= description %>",
+  "author": "<%= author %>",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "latest",<% if (useAngularBootstrap) { %>
+    "angular-bootstrap": "latest", %>
+  },
+  "devDependencies": {
+    "angular-mocks": "latest"
+  }
+}
+
