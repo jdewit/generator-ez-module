@@ -9,7 +9,7 @@ var EzPluginGenerator = module.exports = function EzPluginGenerator(args, option
 
   this.argument('appname', { type: String, required: false });
   this.appname = this.appname || path.basename(process.cwd());
-  this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+  this.appName = this._.camelize(this._.slugify(this._.humanize(this.appname)));
   this.moduleName = this.appname.replace('-', '.');
 
   this.on('end', function () {
@@ -90,6 +90,7 @@ EzPluginGenerator.prototype.app = function app() {
   this.copy('tpl.html', 'src/' + this.appname + '-tpl.html');
   this.copy('style.less', 'src/' + this.appname + '.less');
 
+  this.template('src.js', 'src/' + this.appname + '.js');
   this.template('_Gruntfile.js', 'Gruntfile.js');
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
@@ -97,7 +98,6 @@ EzPluginGenerator.prototype.app = function app() {
   this.template('_README.md', 'README.md');
   this.template('_index.html', 'index.html');
 
-  this.template('src.js', this.appname + '.js');
 };
 
 EzPluginGenerator.prototype.projectfiles = function projectfiles() {
