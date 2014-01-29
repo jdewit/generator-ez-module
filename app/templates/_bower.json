@@ -4,7 +4,7 @@
   "author": "<%= author %>",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "latest",<% if (useAngularBootstrap) { %>
+    "angular": "latest"<% if (angularBootstrap) {, %>
     "angular-bootstrap": "latest" <% } %>
   },
   "devDependencies": {

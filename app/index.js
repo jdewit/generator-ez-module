@@ -51,16 +51,16 @@ EzPluginGenerator.prototype.askFor = function askFor() {
       name: 'modules',
       message: 'Which modules would you like to include?',
       choices: [{
-        value: 'angularBootstrap',
+        value: 'angular-bootstrap',
         name: 'angular-bootstrap',
         checked: true
       }, {
-        value: 'sanitizeModule',
-        name: 'angular-sanitize.js',
+        value: 'grunt-less',
+        name: 'grunt-less',
         checked: true
       }, {
-        value: 'routeModule',
-        name: 'angular-route.js',
+        value: 'grunt-ngtemplates',
+        name: 'grunt-ngtemplates',
         checked: true
       }]
     }
@@ -74,7 +74,9 @@ EzPluginGenerator.prototype.askFor = function askFor() {
     this.author = props.author;
     this.username = props.username;
 
-    this.useAngularBootstrap = hasMod('angularBootsrap');
+    this.angularBootstrap = hasMod('angular-bootsrap');
+    this.gruntLess = hasMod('grunt-less');
+    this.gruntNgtemplates = hasMod('grunt-ngtemplates');
 
     cb();
   }.bind(this));

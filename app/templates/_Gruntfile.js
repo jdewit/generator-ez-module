@@ -13,9 +13,12 @@ module.exports = function(grunt) {
         commitFiles: ['package.json', 'bower.json']
       }
     },
+    clean: {
+      coverage: ['coverage'],
+    },
     jshint: {
       options: {
-        jshintrc: true,
+        jshintrc: '.jshintrc',
       },
       src: {
         files: {
@@ -31,7 +34,7 @@ module.exports = function(grunt) {
         configFile: 'karma.conf.js',
         singleRun: true
       }
-    },
+    }, <% if gruntLess { %>
     less: {
       dist: {
         options: {
@@ -41,10 +44,7 @@ module.exports = function(grunt) {
           "dist/<%= appname %>.min.css": "src/less/<%= appname %>.less"
         }
       }
-    },
-    clean: {
-      coverage: 'coverage'
-    },
+    }, <% } if gruntNgtemplates { %>
     ngtemplates:  {
       main:      {
         src:      'src/**/*.html',
@@ -56,7 +56,7 @@ module.exports = function(grunt) {
           }
         }
       }
-    },
+    }, <% } %>
     uglify: {
       options: {
         mangle: false,
@@ -82,15 +82,15 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-watch'); <% if gruntLess { %>
+  grunt.loadNpmTasks('grunt-contrib-less'); <% } %>
   grunt.loadNpmTasks('grunt-bump');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-angular-templates');
+  grunt.loadNpmTasks('grunt-contrib-clean'); <% if gruntNgtemplates { %>
+  grunt.loadNpmTasks('grunt-angular-templates'); <% } %>
 
-  grunt.registerTask('default', ['jshint', 'ngtemplates', 'uglify']);
+  grunt.registerTask('default', ['jshint'<% if gruntLess { %> , 'less' <% } %><% if gruntNgtemplates { %> , 'ngtemplates' <% } %> , 'uglify']);
   grunt.registerTask('dev', ['shell:clearCoverage', 'karma:unit:start', 'watch']);
   grunt.registerTask('test', ['karma:unit:singleRun']);
 };
